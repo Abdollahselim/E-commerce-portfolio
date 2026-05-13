@@ -1,0 +1,438 @@
+@import "tailwindcss";
+
+/* ─── TAILWIND THEME BRIDGE ─── */
+@theme {
+  --color-gold: #34d6b6;
+  --color-gold-light: #52e0c4;
+  --color-ink: var(--bg);
+  --color-ivory: var(--text);
+  --color-mint: #34d6b6;
+  --color-mint-light: #52e0c4;
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-body), "Cabinet Grotesk", ui-sans-serif, system-ui;
+}
+
+/* ─── THEME TOKENS ─── */
+:root {
+  --gold: #34d6b6;
+  --gold-light: #52e0c4;
+  --gold-dim: rgba(52, 214, 182, 0.1);
+  --gold-border: rgba(52, 214, 182, 0.25);
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-body), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-ar: var(--font-ar), "IBM Plex Sans Arabic", sans-serif;
+  --font-header-ar: var(--font-header-ar), "Tajawal", sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --radius: 4px;
+  --radius-lg: 10px;
+  --max-w: 1080px;
+  --section-pad: 8rem 1.5rem;
+
+  /* Legacy compat */
+  --soft: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.1);
+  --panel: rgba(255, 255, 255, 0.03);
+}
+
+/* ─── DARK THEME (default) ─── */
+[data-theme="dark"] {
+  --bg: #080808;
+  --bg-2: #101010;
+  --bg-3: #181818;
+  --bg-card: #111111;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-md: rgba(255, 255, 255, 0.12);
+  --text: #f0ece4;
+  --text-2: #999;
+  --text-3: #555;
+  --invert: 0;
+  --nav-bg: rgba(8, 8, 8, 0.88);
+  --soft: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.1);
+  --panel: rgba(255, 255, 255, 0.03);
+}
+
+/* ─── LIGHT THEME ─── */
+[data-theme="light"] {
+  --bg: #faf9f7;
+  --bg-2: #f2efe9;
+  --bg-3: #e8e4dc;
+  --bg-card: #ffffff;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-md: rgba(0, 0, 0, 0.15);
+  --text: #0e0e0e;
+  --text-2: #666;
+  --text-3: #aaa;
+  --invert: 1;
+  --nav-bg: rgba(250, 249, 247, 0.9);
+  --soft: rgba(0, 0, 0, 0.06);
+  --line: rgba(0, 0, 0, 0.12);
+  --panel: rgba(0, 0, 0, 0.035);
+}
+
+/* ─── BASE ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  transition: background 0.35s var(--ease-in-out), color 0.35s var(--ease-in-out);
+}
+
+/* Arabic body font */
+[data-locale="ar"] body,
+[dir="rtl"] body {
+  font-family: var(--font-ar);
+}
+
+/* ─── THEME-AWARE UTILITY BRIDGES ─── */
+/* These map Tailwind utility classes to new theme tokens */
+.text-ivory { color: var(--text); }
+.bg-ink { background-color: var(--bg); }
+.text-mint { color: var(--gold); }
+.bg-mint { background-color: var(--gold); }
+.bg-mint-light { background-color: var(--gold-light); }
+.border-white\/10 { border-color: var(--border); }
+.border-white\/15 { border-color: var(--border-md); }
+.bg-white\/\[0\.03\] { background-color: var(--bg-card); }
+.bg-white\/10 { background-color: var(--border); }
+.text-zinc-400 { color: var(--text-2); }
+.text-zinc-500 { color: var(--text-3); }
+.text-zinc-600 { color: var(--text-3); }
+.text-zinc-300 { color: var(--text-2); }
+.hover\:bg-mint-light:hover { background-color: var(--gold-light); }
+.hover\:border-mint:hover { border-color: var(--gold); }
+.hover\:text-mint:hover { color: var(--gold); }
+.shadow-mint\/10 { --tw-shadow-color: rgba(52, 214, 182, 0.1); }
+.hover\:shadow-mint\/20:hover { --tw-shadow-color: rgba(52, 214, 182, 0.2); }
+
+/* ─── SELECTION ─── */
+::selection {
+  background: rgba(52, 214, 182, 0.28);
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── CURSOR GLOW (interactive only — no auto-animation) ─── */
+#cursor-glow {
+  position: fixed;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(52, 214, 182, 0.06) 0%, transparent 70%);
+  opacity: 0;
+  will-change: left, top;
+  mix-blend-mode: screen;
+  transition: opacity 0.4s;
+}
+
+[data-theme="light"] #cursor-glow {
+  background: radial-gradient(circle, rgba(52, 214, 182, 0.08) 0%, transparent 70%);
+  mix-blend-mode: multiply;
+}
+
+/* ─── HEADER ─── */
+header {
+  height: 4rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header[data-scrolled="true"] {
+  height: 3rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.logo-image {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header[data-scrolled="true"] .logo-image {
+  transform: scale(0.85);
+}
+
+/* Arabic font in header/nav */
+[data-locale="ar"] header,
+[dir="rtl"] header {
+  font-family: var(--font-header-ar);
+}
+
+[data-locale="ar"] header a,
+[data-locale="ar"] header button,
+[dir="rtl"] header a,
+[dir="rtl"] header button {
+  font-family: var(--font-header-ar);
+}
+
+/* ─── MOBILE MENU ─── */
+@media (max-width: 767px) {
+  /* Center logo */
+  header nav .logo-link {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  [dir="rtl"] header nav .logo-link {
+    left: auto;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .mobile-menu {
+    background: rgba(8, 8, 8, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition:
+      max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu[data-open="true"] {
+    max-height: 420px;
+    opacity: 1;
+  }
+
+  [data-theme="light"] .mobile-menu {
+    background: rgba(250, 249, 247, 0.94);
+    border-top-color: var(--border);
+  }
+
+  /* Underline on mobile nav links */
+  .mobile-menu-link {
+    position: relative;
+    display: block;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-menu-link::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 0.75rem;
+    right: 0.75rem;
+    height: 1.5px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+  }
+
+  [dir="rtl"] .mobile-menu-link::after {
+    transform-origin: right center;
+  }
+
+  .mobile-menu-link:hover::after,
+  .mobile-menu-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .mobile-menu-link:hover,
+  .mobile-menu-link:focus-visible {
+    color: var(--gold);
+  }
+}
+
+/* ─── CARD HOVER EFFECTS (desktop pointer devices only) ─── */
+@media (hover: hover) {
+  /* Work cards — lift + glow */
+  .work-card-hover {
+    transition:
+      background 0.25s var(--ease-in-out),
+      border-color 0.25s var(--ease-in-out),
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out);
+  }
+  .work-card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(52, 214, 182, 0.07);
+  }
+
+  /* Service cards — lift + bottom gold line */
+  .svc-card-hover {
+    position: relative;
+    overflow: hidden;
+    transition:
+      background 0.25s var(--ease-in-out),
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out);
+  }
+  .svc-card-hover::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out);
+  }
+  .svc-card-hover:hover::after {
+    transform: scaleX(1);
+  }
+  .svc-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(52, 214, 182, 0.06);
+  }
+
+  /* Process cards — subtle border highlight */
+  .process-card-hover {
+    transition:
+      background 0.25s var(--ease-in-out),
+      box-shadow 0.25s var(--ease-in-out);
+  }
+  .process-card-hover:hover {
+    background: var(--bg-3) !important;
+    box-shadow: inset 0 0 0 1px rgba(52, 214, 182, 0.2);
+  }
+  .process-card-hover:hover .process-card-icon {
+    color: var(--gold);
+    transform: scale(1.15);
+  }
+
+  /* CTA buttons general lift */
+  .btn-lift {
+    transition: background 0.2s var(--ease-in-out), transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+  .btn-lift:hover {
+    transform: translateY(-2px);
+  }
+  .btn-lift:active {
+    transform: translateY(0);
+  }
+}
+
+/* ─── PROCESS CARD ICON ANIMATION ─── */
+.process-card-icon {
+  transition: color 0.25s var(--ease-in-out), transform 0.25s var(--ease-out);
+}
+
+/* ─── SECTION COMMON ─── */
+.s-label {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+.s-label::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+[dir="rtl"] .s-label {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .s-label::before {
+  order: 1;
+}
+
+/* ─── CONTACT / CTA SECTION ─── */
+.cta-gold-line::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.cta-gold-blur {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(52, 214, 182, 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── WORK RESULT BADGE ─── */
+.work-result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.work-result-badge::before {
+  content: "↑";
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ─── THEME TRANSITION ─── */
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition:
+    background-color 0.4s var(--ease-in-out),
+    border-color 0.4s var(--ease-in-out),
+    color 0.35s var(--ease-in-out) !important;
+}
+
+/* ─── AVAILABILITY DOT (no auto-blink — user did not want auto animations) ─── */
+.avail-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ─── HERO BACKGROUND LINES ─── */
+.hero-bg-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+  pointer-events: none;
+}
