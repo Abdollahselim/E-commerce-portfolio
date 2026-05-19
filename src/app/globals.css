@@ -214,9 +214,9 @@ header[data-scrolled="true"] .logo-image {
   }
 
   .mobile-menu {
-    background: rgba(8, 8, 8, 0.88);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
     border-top: 1px solid var(--border);
     overflow: hidden;
     max-height: 0;
@@ -232,7 +232,7 @@ header[data-scrolled="true"] .logo-image {
   }
 
   [data-theme="light"] .mobile-menu {
-    background: rgba(250, 249, 247, 0.94);
+    background: rgba(255, 255, 255, 0.98);
     border-top-color: var(--border);
   }
 

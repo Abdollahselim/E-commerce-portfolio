@@ -6,7 +6,7 @@ import { PreferencesProvider } from "@/lib/i18n";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { BackToTop } from "@/components/back-to-top";
-import { siteConfig } from "@/data/site";
+import { faqs, siteConfig } from "@/data/site";
 import { CursorGlow } from "@/components/ui/cursor-glow";
 
 const inter = Inter({
@@ -40,10 +40,10 @@ const tajawal = Tajawal({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Abdullah Selim | E-Commerce Systems Engineer",
+    default: "Abdullah Selim | Saudi & GCC E-Commerce Systems Engineer",
     template: "%s | Abdullah Selim"
   },
-  description: siteConfig.description,
+  description: "Hire Abdullah Selim for Saudi and GCC e-commerce systems: Salla, Shopify, WooCommerce, Next.js, CRO, speed optimization, technical SEO, and automation.",
   alternates: {
     canonical: "/"
   },
@@ -68,15 +68,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteConfig.url,
-    title: "Abdullah Selim | E-Commerce Systems Engineer",
-    description: siteConfig.description,
+    title: "Abdullah Selim | Saudi & GCC E-Commerce Systems Engineer",
+    description: "Salla, Shopify, WooCommerce, Next.js, CRO, speed optimization, technical SEO, and automation for GCC brands.",
     siteName: "Abdullah Selim Portfolio",
     locale: "en_US"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abdullah Selim | E-Commerce Systems Engineer",
-    description: siteConfig.description
+    title: "Abdullah Selim | Saudi & GCC E-Commerce Systems Engineer",
+    description: "E-commerce systems, CRO, speed, SEO, and automation for Saudi and GCC brands."
   },
   robots: {
     index: true,
@@ -117,6 +117,34 @@ const personSchema = {
   knowsAbout: ["Salla", "Shopify", "WooCommerce", "Next.js", "NestJS"]
 };
 
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Abdullah Selim E-Commerce Systems Engineering",
+  url: siteConfig.url,
+  email: siteConfig.email,
+  telephone: siteConfig.phone,
+  areaServed: ["Saudi Arabia", "United Arab Emirates", "Kuwait", "Qatar", "Bahrain", "Oman"],
+  serviceType: ["Salla development", "Shopify development", "E-commerce CRO", "Technical SEO", "Performance optimization"],
+  founder: {
+    "@type": "Person",
+    name: siteConfig.name
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question.en,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer.en
+    }
+  }))
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -129,6 +157,16 @@ export default function RootLayout({
           id="person-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <Script
+          id="service-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
         <PreferencesProvider>
           <CursorGlow />

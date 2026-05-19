@@ -5,3 +5,8 @@ dist/
 *.log
 .env*
 !.env.example
+dist/
+build/
+.DS_Store
+*.log
+EOF

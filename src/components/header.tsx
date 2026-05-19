@@ -8,31 +8,11 @@ import { navItems, siteConfig } from "@/data/site";
 import { usePreferences } from "@/lib/i18n";
 
 const AnimatedMenuIcon = ({ open }: { open: boolean }) => (
-  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-    <line
-      x1="4" y1="6" x2="20" y2="6"
-      style={{
-        transform: open ? "rotate(45deg) translate(5px, -1px)" : "none",
-        transformOrigin: "center",
-        transition: "transform 0.3s ease",
-      }}
-    />
-    <line
-      x1="4" y1="12" x2="20" y2="12"
-      style={{
-        opacity: open ? 0 : 1,
-        transition: "opacity 0.3s ease",
-      }}
-    />
-    <line
-      x1="4" y1="18" x2="20" y2="18"
-      style={{
-        transform: open ? "rotate(-45deg) translate(6px, 6px)" : "none",
-        transformOrigin: "center",
-        transition: "transform 0.3s ease",
-      }}
-    />
-  </svg>
+  <div className="relative flex h-5 w-5 flex-col items-center justify-center">
+    <span className={`absolute h-[2px] w-5 bg-current transition-all duration-300 ease-out ${open ? "rotate-45" : "-translate-y-1.5"}`} />
+    <span className={`absolute h-[2px] w-5 bg-current transition-all duration-300 ease-out ${open ? "opacity-0" : "opacity-100"}`} />
+    <span className={`absolute h-[2px] w-5 bg-current transition-all duration-300 ease-out ${open ? "-rotate-45" : "translate-y-1.5"}`} />
+  </div>
 );
 
 export function Header() {
@@ -61,16 +41,8 @@ export function Header() {
             rel="noopener noreferrer"
             className="rounded-md bg-mint px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-ink transition hover:bg-mint-light"
           >
-            {locale === "en" ? "Hire Me" : "تواصل"}
+            {locale === "en" ? "Free Audit" : "تدقيق مجاني"}
           </Link>
-          <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-zinc-300 transition hover:border-mint hover:text-mint"
-            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            type="button"
-            onClick={toggleTheme}
-          >
-            {theme === "dark" ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
-          </button>
         </div>
 
         {/* Centered logo */}
@@ -93,9 +65,9 @@ export function Header() {
 
         {/* Right group: desktop controls + mobile menu icon */}
         <div className="flex items-center gap-3">
-          {/* Desktop: Theme toggle */}
+          {/* Theme toggle */}
           <button
-            className="hidden md:inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-zinc-300 transition hover:border-mint hover:text-mint"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-zinc-300 transition hover:border-mint hover:text-mint"
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             type="button"
             onClick={toggleTheme}
@@ -118,11 +90,11 @@ export function Header() {
             rel="noopener noreferrer"
             className="hidden md:inline-block md:ms-auto rounded-md bg-mint px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-ink transition hover:bg-mint-light"
           >
-            {locale === "en" ? "Hire Me" : "تواصل"}
+            {locale === "en" ? "Free Audit" : "تدقيق مجاني"}
           </Link>
           {/* Mobile: Menu toggle */}
           <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-zinc-300 md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-zinc-300 md:hidden leading-none me-2"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             type="button"
@@ -141,7 +113,7 @@ export function Header() {
       >
         <div className="mobile-menu-inner mx-auto grid max-w-7xl gap-1 px-5 py-3">
           <button
-            className="mobile-menu-link flex items-center justify-between rounded-md px-3 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300"
+            className="mobile-menu-link flex items-center justify-between rounded-md px-3 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-ivory"
             type="button"
             onClick={toggleLocale}
           >
@@ -152,7 +124,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="mobile-menu-link rounded-md px-3 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300"
+              className="mobile-menu-link rounded-md px-3 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-ivory"
             >
               {t(item.label)}
             </Link>
