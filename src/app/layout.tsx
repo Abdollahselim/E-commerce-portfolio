@@ -6,6 +6,7 @@ import { PreferencesProvider } from "@/lib/i18n";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { BackToTop } from "@/components/back-to-top";
+import { FloatingWhatsApp } from "@/components/ui/whatsapp-button";
 import { faqs, siteConfig } from "@/data/site";
 import { CursorGlow } from "@/components/ui/cursor-glow";
 
@@ -173,6 +174,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <FloatingWhatsApp />
           <BackToTop />
         </PreferencesProvider>
       </body>

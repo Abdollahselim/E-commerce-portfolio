@@ -12,6 +12,19 @@ import {
   Sparkles,
   Workflow
 } from "lucide-react";
+import {
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiTailwindcss,
+  SiFramer,
+  SiGreensock,
+  SiNestjs,
+  SiPostgresql,
+  SiVercel,
+  SiRailway,
+  SiShopify
+} from "react-icons/si";
 import type { Localized } from "@/lib/i18n";
 
 export const siteConfig = {
@@ -19,13 +32,13 @@ export const siteConfig = {
   role: "E-Commerce Systems Engineer",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://abdullahselim.com",
   email: "3bdullahselim@gmail.com",
-  phone: "+201099454508",
+  phone: "+201551747510",
   location: "Mansoura, Egypt",
   market: "Saudi Arabia & GCC",
   linkedin: "https://www.linkedin.com/in/%D9%90abdullah-selim-721693175",
   github: "https://github.com/Abdollahselim",
   whatsapp:
-    "https://wa.me/201099454508?text=Hi%20Abdullah%2C%20I%20want%20to%20discuss%20a%20project",
+    "https://wa.me/201551747510?text=Hi%20Abdullah%2C%20I%27m%20interested%20in%20a%20premium%20e-commerce%20and%20automation%20audit%20for%20my%20store.",
   description:
     "E-commerce systems engineer building high-converting Salla, Shopify, WooCommerce, Next.js and automation systems for Saudi and GCC businesses."
 };
@@ -70,8 +83,8 @@ export const heroCopy = {
     en: "Shopify, Salla & WooCommerce, Next.js specialist. 20+ stores delivered. I don't just build websites — I build revenue systems.",
     ar: "متخصص في شوبيفاي، سلة، ووكمرس، و Next.js. قمت بتسليم أكثر من 20 متجراً بنجاح. أنا لا أبرمج مجرد مواقع، بل أبني أنظمة متكاملة لتوليد الأرباح."
   },
-  primaryCta: { en: "Get Free Store Audit", ar: "احصل على تدقيق مجاني لمتجرك" },
-  secondaryCta: { en: "See Proof", ar: "شاهد النتائج" },
+  primaryCta: { en: "Book Free Audit", ar: "احجز جلسة تدقيق مجانية" },
+  secondaryCta: { en: "WhatsApp Analysis", ar: "تحليل عبر الواتساب" },
   proofSignalsText: { en: "Proof signals visible before the call", ar: "مؤشرات النجاح قبل حتى بدء العمل" }
 };
 
@@ -268,19 +281,25 @@ export const services = [
   }
 ];
 
+const SallaIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M18.36 9.04c-.66-.46-1.74-.82-3.15-1.02a11.1 11.1 0 0 0-3.32.06c-1.22.25-2.26.7-3.05 1.25-.79.55-1.18 1.16-1.18 1.83 0 .42.16.8.5 1.12.33.32.83.6 1.5.84.66.24 1.47.45 2.4.63.94.18 1.93.36 2.95.53 1.02.17 2 .4 2.92.68s1.68.64 2.27 1.1c.6.46.9 1.05.9 1.77 0 .9-.44 1.73-1.32 2.47-.88.75-2.07 1.34-3.57 1.78a16.22 16.22 0 0 1-4.3.49c-1.58 0-3.07-.15-4.45-.46a11.33 11.33 0 0 1-3.66-1.3l1.35-3.3c.77.56 1.8.99 3.09 1.28 1.29.3 2.59.45 3.9.45 1.15 0 2.1-.18 2.85-.54.75-.36 1.13-.81 1.13-1.34 0-.39-.16-.73-.48-1.01-.32-.28-.79-.53-1.42-.75-.62-.22-1.38-.42-2.27-.6-1-.2-2-.39-3-.58-1-.19-1.92-.43-2.76-.73-.84-.3-1.53-.69-2.07-1.17-.54-.48-.81-1.08-.81-1.8 0-.91.43-1.73 1.29-2.47.85-.74 2.02-1.32 3.51-1.72 1.49-.4 3.16-.6 5-.6 1.34 0 2.65.12 3.92.36 1.27.24 2.4.58 3.39 1.02l-1.42 3.1z"/>
+  </svg>
+);
+
 export const stack = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Framer Motion",
-  "GSAP",
-  "Salla API",
-  "Shopify Storefront API",
-  "NestJS",
-  "PostgreSQL",
-  "Vercel",
-  "Railway"
+  { name: "Next.js", icon: SiNextdotjs, brandColor: "#FFFFFF" },
+  { name: "React", icon: SiReact, brandColor: "#61DAFB" },
+  { name: "TypeScript", icon: SiTypescript, brandColor: "#3178C6" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, brandColor: "#06B6D4" },
+  { name: "Framer Motion", icon: SiFramer, brandColor: "#0055FF" },
+  { name: "GSAP", icon: SiGreensock, brandColor: "#88CE02" },
+  { name: "Salla API", icon: SallaIcon, brandColor: "#7FD1B9" },
+  { name: "Shopify Storefront API", icon: SiShopify, brandColor: "#95BF47" },
+  { name: "NestJS", icon: SiNestjs, brandColor: "#E0234E" },
+  { name: "PostgreSQL", icon: SiPostgresql, brandColor: "#4169E1" },
+  { name: "Vercel", icon: SiVercel, brandColor: "#FFFFFF" },
+  { name: "Railway", icon: SiRailway, brandColor: "#FFFFFF" }
 ];
 
 export const processSteps = [
@@ -359,7 +378,7 @@ export const trustSignals: Localized<string>[] = [
 ];
 
 export const contactChannels = [
-  { label: { en: "WhatsApp", ar: "واتساب" }, value: "+20 010 9945 4508", href: siteConfig.whatsapp, icon: MessageCircle },
+  { label: { en: "WhatsApp", ar: "واتساب" }, value: "+20 155 174 7510", href: siteConfig.whatsapp, icon: MessageCircle },
   { label: { en: "Email", ar: "البريد الإلكتروني" }, value: siteConfig.email, href: `mailto:${siteConfig.email}`, icon: Globe2 }
 ];
 

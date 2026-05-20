@@ -2,22 +2,22 @@
 
 /* ─── TAILWIND THEME BRIDGE ─── */
 @theme {
-  --color-gold: #34d6b6;
-  --color-gold-light: #52e0c4;
+  --color-gold: #10b981;
+  --color-gold-light: #34d399;
   --color-ink: var(--bg);
   --color-ivory: var(--text);
-  --color-mint: #34d6b6;
-  --color-mint-light: #52e0c4;
+  --color-mint: #10b981;
+  --color-mint-light: #34d399;
   --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-body), "Cabinet Grotesk", ui-sans-serif, system-ui;
 }
 
 /* ─── THEME TOKENS ─── */
 :root {
-  --gold: #34d6b6;
-  --gold-light: #52e0c4;
-  --gold-dim: rgba(52, 214, 182, 0.1);
-  --gold-border: rgba(52, 214, 182, 0.25);
+  --gold: #10b981;
+  --gold-light: #34d399;
+  --gold-dim: rgba(16, 185, 129, 0.1);
+  --gold-border: rgba(16, 185, 129, 0.25);
   --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
   --font-body: var(--font-body), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-ar: var(--font-ar), "IBM Plex Sans Arabic", sans-serif;
@@ -37,10 +37,10 @@
 
 /* ─── DARK THEME (default) ─── */
 [data-theme="dark"] {
-  --bg: #080808;
-  --bg-2: #101010;
-  --bg-3: #181818;
-  --bg-card: #111111;
+  --bg: #090d16;
+  --bg-2: #0f172a;
+  --bg-3: #1e293b;
+  --bg-card: #0f172a;
   --border: rgba(255, 255, 255, 0.07);
   --border-md: rgba(255, 255, 255, 0.12);
   --text: #f0ece4;
@@ -123,7 +123,7 @@ body {
 
 /* ─── SELECTION ─── */
 ::selection {
-  background: rgba(52, 214, 182, 0.28);
+  background: rgba(16, 185, 129, 0.28);
   color: #fff;
 }
 
@@ -152,7 +152,7 @@ a {
   pointer-events: none;
   z-index: 0;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(52, 214, 182, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
   opacity: 0;
   will-change: left, top;
   mix-blend-mode: screen;
@@ -160,7 +160,7 @@ a {
 }
 
 [data-theme="light"] #cursor-glow {
-  background: radial-gradient(circle, rgba(52, 214, 182, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
   mix-blend-mode: multiply;
 }
 
@@ -284,7 +284,7 @@ header[data-scrolled="true"] .logo-image {
   }
   .work-card-hover:hover {
     transform: translateY(-3px);
-    box-shadow: 0 16px 48px rgba(52, 214, 182, 0.07);
+    box-shadow: 0 16px 48px rgba(16, 185, 129, 0.07);
   }
 
   /* Service cards — lift + bottom gold line */
@@ -313,7 +313,7 @@ header[data-scrolled="true"] .logo-image {
   }
   .svc-card-hover:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(52, 214, 182, 0.06);
+    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.06);
   }
 
   /* Process cards — subtle border highlight */
@@ -324,7 +324,7 @@ header[data-scrolled="true"] .logo-image {
   }
   .process-card-hover:hover {
     background: var(--bg-3) !important;
-    box-shadow: inset 0 0 0 1px rgba(52, 214, 182, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.2);
   }
   .process-card-hover:hover .process-card-icon {
     color: var(--gold);
@@ -392,7 +392,7 @@ header[data-scrolled="true"] .logo-image {
   transform: translateX(-50%);
   width: 300px;
   height: 200px;
-  background: radial-gradient(ellipse, rgba(52, 214, 182, 0.1), transparent 70%);
+  background: radial-gradient(ellipse, rgba(16, 185, 129, 0.1), transparent 70%);
   pointer-events: none;
 }
 

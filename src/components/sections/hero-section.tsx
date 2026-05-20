@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, MapPin, ShieldCheck, MessageCircle } from "lucide-react";
+import { PopupModal } from "react-calendly";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { clientProof, heroCopy, heroProof, siteConfig, stats } from "@/data/site";
 import { usePreferences } from "@/lib/i18n";
@@ -11,8 +12,11 @@ import { usePreferences } from "@/lib/i18n";
 export function HeroSection() {
   const { t, locale } = usePreferences();
   const [marketIndex, setMarketIndex] = useState(0);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [rootElement, setRootElement] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
+    setRootElement(document.body);
     const interval = setInterval(() => {
       setMarketIndex((prev) => (prev + 1) % heroCopy.markets.length);
     }, 2000);
@@ -66,7 +70,20 @@ export function HeroSection() {
             </p>
           </MotionReveal>
           <MotionReveal delay={0.24}>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-10 flex flex-col gap-4 w-full sm:flex-row">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <button
+                  onClick={() => setIsCalendlyOpen(true)}
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-mint px-8 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink transition shadow-lg shadow-mint/10 hover:shadow-mint/20"
+                >
+                  {t(heroCopy.primaryCta)}
+                  <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+                </button>
+              </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -76,25 +93,23 @@ export function HeroSection() {
                   href={siteConfig.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-mint px-8 py-4 text-sm font-bold uppercase tracking-[0.16em] text-ink transition shadow-lg shadow-mint/10 hover:shadow-mint/20"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-ivory transition hover:border-mint hover:text-mint"
                 >
-                  {t(heroCopy.primaryCta)}
-                  <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <Link
-                  href="#case-studies"
-                  className="inline-flex w-full sm:w-auto items-center justify-center rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-ivory transition hover:border-mint hover:text-mint"
-                >
+                  <MessageCircle className="h-4 w-4" />
                   {t(heroCopy.secondaryCta)}
                 </Link>
               </motion.div>
             </div>
+            
+            {/* Calendly Modal */}
+            {rootElement && (
+              <PopupModal
+                url={process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com"}
+                onModalClose={() => setIsCalendlyOpen(false)}
+                open={isCalendlyOpen}
+                rootElement={rootElement}
+              />
+            )}
           </MotionReveal>
         </div>
         <MotionReveal delay={0.18} className="mx-auto w-full max-w-lg rounded-lg border border-white/10 bg-white/[0.03] p-6 lg:mx-0 lg:max-w-none">
