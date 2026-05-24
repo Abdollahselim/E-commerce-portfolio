@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, MapPin, ShieldCheck, MessageCircle } from "lucide-react";
-import { PopupModal } from "react-calendly";
+import { InlineWidget } from "react-calendly";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { clientProof, heroCopy, heroProof, siteConfig, stats } from "@/data/site";
 import { usePreferences } from "@/lib/i18n";
@@ -13,15 +13,23 @@ export function HeroSection() {
   const { t, locale } = usePreferences();
   const [marketIndex, setMarketIndex] = useState(0);
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-  const [rootElement, setRootElement] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    setRootElement(document.body);
     const interval = setInterval(() => {
       setMarketIndex((prev) => (prev + 1) % heroCopy.markets.length);
     }, 2000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!isCalendlyOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isCalendlyOpen]);
 
   const currentMarket = heroCopy.markets[marketIndex];
 
@@ -100,15 +108,41 @@ export function HeroSection() {
                 </Link>
               </motion.div>
             </div>
-            
-            {/* Calendly Modal */}
-            {rootElement && (
-              <PopupModal
-                url={process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com"}
-                onModalClose={() => setIsCalendlyOpen(false)}
-                open={isCalendlyOpen}
-                rootElement={rootElement}
-              />
+
+            {isCalendlyOpen && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4 backdrop-blur-sm sm:p-6"
+                onClick={() => setIsCalendlyOpen(false)}
+              >
+                <div
+                  className="relative w-full max-w-5xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d1220] shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <div className="flex flex-col gap-3 border-b border-white/10 bg-ink/95 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.24em] text-zinc-400">{t(heroCopy.primaryCta)}</p>
+                      <h2 className="mt-1 text-lg font-semibold text-ivory">
+                        {t({ en: "Schedule your audit call", ar: "حدد موعد جلسة التدقيق" })}
+                      </h2>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setIsCalendlyOpen(false)}
+                      className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-300 transition hover:bg-white/10"
+                    >
+                      {t({ en: "Close", ar: "إغلاق" })}
+                    </button>
+                  </div>
+
+                  <div className="h-[min(80vh,720px)] bg-[#02060f]">
+                    <InlineWidget
+                      url={process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com"}
+                      styles={{ height: "100%", minHeight: "640px" }}
+                      pageSettings={{ hideLandingPageDetails: true, hideEventTypeDetails: true }}
+                    />
+                  </div>
+                </div>
+              </div>
             )}
           </MotionReveal>
         </div>

@@ -11,24 +11,19 @@ export function Footer() {
   const logoSrc = theme === "dark" ? "/logo_dark.png" : "/logo_light.png";
 
   return (
-    <footer className="border-t border-white/10 px-5 py-8 sm:px-8 lg:px-10">
-      <div className="mx-auto flex max-w-7xl flex-col gap-5 text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
-        <Link href="#hero" className="relative block h-10 w-[138px]" aria-label="Abdullah Selim home">
+    <footer className="border-t border-white/10 px-5 py-5 sm:px-8 sm:py-6 lg:px-10">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 text-sm text-zinc-500 md:flex-row md:items-center md:justify-between md:text-left">
+        <Link href="#hero" className="order-1 relative block h-14 w-[180px] md:h-12 md:w-[160px]" aria-label="Abdullah Selim home">
           <Image
             src={logoSrc}
             alt="Abdullah Selim"
-            width={138}
-            height={40}
-            sizes="138px"
+            width={180}
+            height={50}
+            sizes="(max-width: 767px) 180px, 160px"
             className="h-full w-full object-contain"
           />
         </Link>
-        <p>
-          {locale === "en"
-            ? "© 2026 Abdullah Selim. Built for speed, trust, and scale."
-            : "© 2026 عبدالله سليم. مبني للسرعة والثقة والقابلية للتوسع."}
-        </p>
-        <div className="flex gap-3">
+        <div className="order-2 flex gap-3 md:order-3">
           <Link
             href={siteConfig.linkedin}
             target="_blank"
@@ -55,6 +50,11 @@ export function Footer() {
             <Mail className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
+        <p className="order-3 max-w-2xl text-center md:order-2 md:text-left">
+          {locale === "en"
+            ? "© 2026 Abdullah Selim. Built for speed, trust, and scale."
+            : "© 2026 عبدالله سليم. مبني للسرعة والثقة والقابلية للتوسع."}
+        </p>
       </div>
     </footer>
   );

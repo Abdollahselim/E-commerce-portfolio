@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Moon, Sun } from "lucide-react";
 import { navItems, siteConfig } from "@/data/site";
 import { usePreferences } from "@/lib/i18n";
@@ -18,6 +18,8 @@ const AnimatedMenuIcon = ({ open }: { open: boolean }) => (
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const toggleRef = useRef<HTMLButtonElement | null>(null);
   const { t, theme, toggleTheme, locale, toggleLocale } = usePreferences();
   const logoSrc = theme === "dark" ? "/logo_dark.svg" : "/logo_light.svg";
 
@@ -26,6 +28,30 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleDocumentClick = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null;
+
+      if (
+        target &&
+        !menuRef.current?.contains(target) &&
+        !toggleRef.current?.contains(target)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleDocumentClick);
+    document.addEventListener("touchstart", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+      document.removeEventListener("touchstart", handleDocumentClick);
+    };
+  }, [open]);
 
   return (
     <header
@@ -102,6 +128,7 @@ export function Header() {
           </Link>
           {/* Mobile: Menu toggle */}
           <button
+            ref={toggleRef}
             className="flex h-10 w-10 items-center justify-center rounded-md border border-white/10 text-zinc-300 md:hidden leading-none me-2"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
@@ -115,6 +142,7 @@ export function Header() {
 
       {/* Mobile menu — always in DOM, animated via max-height */}
       <div
+        ref={menuRef}
         className="mobile-menu md:hidden"
         aria-hidden={!open}
         data-open={open}

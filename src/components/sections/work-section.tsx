@@ -51,7 +51,12 @@ export function WorkSection() {
                 rel={project.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="group flex h-full flex-col overflow-hidden rounded-lg border border-white/10 border-b-2 border-b-mint bg-ink transition hover:border-mint/60"
               >
-                <ProjectVisual src={project.image} alt={`${t(project.title)} screenshot`} hint={project.imageHint} className="min-h-[220px] rounded-none border-0" />
+                <ProjectVisual
+                  src={project.image}
+                  alt={`${t(project.title)} screenshot`}
+                  hint={project.imageHint}
+                  className="h-[240px] sm:h-[260px] md:h-[300px] rounded-none border-0"
+                />
                 <div className="flex flex-1 flex-col p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-mint">{t(project.category)}</p>
                   <h3 className="mt-4 text-xl font-semibold text-ivory">{t(project.title)}</h3>

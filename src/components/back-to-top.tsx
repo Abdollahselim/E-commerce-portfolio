@@ -19,10 +19,21 @@ export function BackToTop() {
       type="button"
       aria-label="Back to top"
       onClick={() => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+        const start = window.scrollY;
+        const duration = 700;
+        const startTime = performance.now();
+
+        const animate = (currentTime: number) => {
+          const elapsed = Math.min((currentTime - startTime) / duration, 1);
+          const ease = 1 - Math.pow(1 - elapsed, 3);
+          window.scrollTo(0, Math.round(start * (1 - ease)));
+
+          if (elapsed < 1) {
+            window.requestAnimationFrame(animate);
+          }
+        };
+
+        window.requestAnimationFrame(animate);
       }}
       className={cn(
         "fixed bottom-5 end-5 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-ink/90 text-mint shadow-2xl shadow-black/20 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-mint",
