@@ -11,6 +11,8 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@next/third-parties": "^15.3.2",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.10.5",
     "gsap": "^3.13.0",

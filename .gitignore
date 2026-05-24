@@ -3,6 +3,7 @@ node_modules/
 out/
 dist/
 *.log
+*.tsbuildinfo
 .env*
 !.env.example
 dist/
@@ -10,3 +11,4 @@ build/
 .DS_Store
 *.log
 EOF
+*.DEVELOPER_REFERENCE.md

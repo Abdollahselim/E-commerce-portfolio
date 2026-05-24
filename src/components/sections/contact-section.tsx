@@ -104,8 +104,7 @@ export function ContactSection() {
       <div className="mx-auto max-w-6xl">
         <MotionReveal>
           <div
-            className="cta-gold-line relative overflow-hidden rounded-[var(--radius-lg)] border p-6 sm:p-8 lg:p-10"
-            style={{ background: "var(--bg-card)", borderColor: "var(--border-md)" }}
+            className="cta-gold-line relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border-md)] bg-[var(--bg-card)] p-6 sm:p-8 lg:p-10"
           >
             <div className="cta-gold-blur" aria-hidden="true" />
 
@@ -113,13 +112,13 @@ export function ContactSection() {
 
               {/* ── Left column — details + channels ── */}
               <div>
-                <p className="mb-5 block text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: "var(--gold)" }}>
+                <p className="mb-5 block text-xs font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">
                   {t(sectionCopy.contact.label)}
                 </p>
                 <h2 className="max-w-3xl font-display text-4xl font-semibold leading-[1.1] text-ivory sm:text-5xl">
                   {t(sectionCopy.contact.title)}
                 </h2>
-                <p className="mt-5 max-w-xl text-base" style={{ color: "var(--text-2)", lineHeight: 1.8 }}>
+                <p className="mt-5 max-w-xl text-base leading-[1.8] text-[var(--text-2)]">
                   {t(sectionCopy.contact.description)}
                 </p>
 
@@ -134,15 +133,14 @@ export function ContactSection() {
                         target={channel.href.startsWith("http") ? "_blank" : undefined}
                         rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         onClick={() => trackEvent("whatsapp_click")}
-                        className="btn-lift flex items-center gap-3 rounded-[var(--radius)] border p-4 text-left text-sm transition hover:border-mint/40"
-                        style={{ borderColor: "var(--border)", background: "var(--bg)" }}
+                        className="btn-lift flex items-center gap-3 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--bg)] p-4 text-left text-sm transition hover:border-mint/40"
                       >
-                        <Icon className="h-5 w-5 flex-shrink-0" style={{ color: "var(--gold)" }} aria-hidden="true" />
+                        <Icon className="h-5 w-5 flex-shrink-0 text-[var(--gold)]" aria-hidden="true" />
                         <span>
-                          <span className="block text-xs uppercase tracking-[0.18em]" style={{ color: "var(--text-3)" }}>
+                          <span className="block text-xs uppercase tracking-[0.18em] text-[var(--text-3)]">
                             {t(channel.label)}
                           </span>
-                          <span style={{ color: "var(--text-2)" }}>{channel.value}</span>
+                          <span className="text-[var(--text-2)]">{channel.value}</span>
                         </span>
                       </Link>
                     );

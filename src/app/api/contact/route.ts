@@ -22,14 +22,19 @@ export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   // ── 1. Rate Limiting ────────────────────────────────────────────────────
   const ip = getIp(req);
-  const rateCheck = checkRateLimit(ip);
+  const rateCheck = await checkRateLimit(ip);
 
   if (!rateCheck.ok) {
     return NextResponse.json(
       { error: "Too many requests. Please wait and try again." },
       {
         status: 429,
-        headers: { "Retry-After": String(rateCheck.retryAfter ?? 60) },
+        headers: {
+          "X-RateLimit-Limit": String(rateCheck.limit),
+          "X-RateLimit-Remaining": String(rateCheck.remaining),
+          "X-RateLimit-Reset": String(rateCheck.reset),
+          "Retry-After": String(rateCheck.retryAfter ?? 60),
+        },
       }
     );
   }

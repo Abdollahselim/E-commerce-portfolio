@@ -47,7 +47,15 @@ export function Header() {
 
         {/* Centered logo */}
         <Link href="#hero" className="relative block h-10 w-[120px] lg:h-[4rem] lg:w-[138px] logo-link" aria-label="Abdullah Selim home">
-          <Image src={logoSrc} alt="Abdullah Selim" fill priority sizes="(max-width: 767px) 120px, 138px" className="object-contain logo-image" />
+          <Image
+            src={logoSrc}
+            alt="Abdullah Selim"
+            width={138}
+            height={64}
+            priority
+            sizes="(max-width: 767px) 120px, 138px"
+            className="h-full w-full object-contain logo-image"
+          />
         </Link>
 
         {/* Desktop navigation */}

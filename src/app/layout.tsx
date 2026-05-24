@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import Script from "next/script";
 import { Inter, Cormorant_Garamond, IBM_Plex_Sans_Arabic, Tajawal } from "next/font/google";
 import "./globals.css";
@@ -9,6 +10,7 @@ import { BackToTop } from "@/components/back-to-top";
 import { FloatingWhatsApp } from "@/components/ui/whatsapp-button";
 import { faqs, siteConfig } from "@/data/site";
 import { CursorGlow } from "@/components/ui/cursor-glow";
+import { MotionProvider } from "@/components/motion-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -146,37 +148,44 @@ const faqSchema = {
   }))
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get("x-nonce") ?? "";
+
   return (
     <html lang="en" dir="ltr" data-theme="dark" data-locale="en" suppressHydrationWarning>
       <body suppressHydrationWarning className={`${inter.variable} ${cormorant.variable} ${ibmPlexArabic.variable} ${tajawal.variable} antialiased`}>
         <Script
           id="person-schema"
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         <Script
           id="service-schema"
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
         />
         <Script
           id="faq-schema"
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
-        <PreferencesProvider>
-          <CursorGlow />
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <FloatingWhatsApp />
-          <BackToTop />
-        </PreferencesProvider>
+        <MotionProvider nonce={nonce}>
+          <PreferencesProvider>
+            <CursorGlow />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <FloatingWhatsApp />
+            <BackToTop />
+          </PreferencesProvider>
+        </MotionProvider>
       </body>
     </html>
   );

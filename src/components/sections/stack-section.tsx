@@ -5,6 +5,21 @@ import { MotionReveal } from "@/components/ui/motion-reveal";
 import { sectionCopy, stack, trustSignals } from "@/data/site";
 import { usePreferences } from "@/lib/i18n";
 
+const stackHoverColor: Record<string, string> = {
+  "Next.js": "group-hover:text-white",
+  React: "group-hover:text-[#61DAFB]",
+  TypeScript: "group-hover:text-[#3178C6]",
+  "Tailwind CSS": "group-hover:text-[#06B6D4]",
+  "Framer Motion": "group-hover:text-[#0055FF]",
+  GSAP: "group-hover:text-[#88CE02]",
+  "Salla API": "group-hover:text-[#7FD1B9]",
+  "Shopify Storefront API": "group-hover:text-[#95BF47]",
+  NestJS: "group-hover:text-[#E0234E]",
+  PostgreSQL: "group-hover:text-[#4169E1]",
+  Vercel: "group-hover:text-white",
+  Railway: "group-hover:text-white",
+};
+
 export function StackSection() {
   const { t } = usePreferences();
   return (
@@ -24,10 +39,9 @@ export function StackSection() {
                 <div
                   key={tech.name}
                   className="group relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] p-3 backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] sm:h-16 sm:w-16"
-                  style={{ '--brand': tech.brandColor } as React.CSSProperties}
                 >
                   <Icon 
-                    className="h-full w-full text-zinc-400 transition-colors duration-300 group-hover:text-[var(--brand)]" 
+                    className={`h-full w-full text-zinc-400 transition-colors duration-300 ${stackHoverColor[tech.name] ?? "group-hover:text-mint"}`}
                     aria-hidden="true" 
                   />
                   

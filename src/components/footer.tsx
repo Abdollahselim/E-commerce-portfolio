@@ -14,7 +14,14 @@ export function Footer() {
     <footer className="border-t border-white/10 px-5 py-8 sm:px-8 lg:px-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
         <Link href="#hero" className="relative block h-10 w-[138px]" aria-label="Abdullah Selim home">
-          <Image src={logoSrc} alt="Abdullah Selim" fill sizes="138px" className="object-contain" />
+          <Image
+            src={logoSrc}
+            alt="Abdullah Selim"
+            width={138}
+            height={40}
+            sizes="138px"
+            className="h-full w-full object-contain"
+          />
         </Link>
         <p>
           {locale === "en"
