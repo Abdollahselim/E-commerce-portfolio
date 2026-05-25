@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, MapPin, ShieldCheck, MessageCircle } from "lucide-react";
-import { InlineWidget } from "react-calendly";
+import { ArrowRight, CheckCircle2, MapPin, ShieldCheck, MessageCircle, Check } from "lucide-react";
+import { BookingModal } from "@/components/ui/booking-modal";
+import { CalendlyEmbed } from "@/components/ui/calendly-embed";
 import { MotionReveal } from "@/components/ui/motion-reveal";
 import { clientProof, heroCopy, heroProof, siteConfig, stats } from "@/data/site";
 import { usePreferences } from "@/lib/i18n";
@@ -20,16 +21,6 @@ export function HeroSection() {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    if (!isCalendlyOpen) return;
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, [isCalendlyOpen]);
 
   const currentMarket = heroCopy.markets[marketIndex];
 
@@ -86,7 +77,7 @@ export function HeroSection() {
               >
                 <button
                   onClick={() => setIsCalendlyOpen(true)}
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-mint px-8 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink transition shadow-lg shadow-mint/10 hover:shadow-mint/20"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-mint px-8 py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink transition shadow-lg shadow-mint/10 hover:shadow-mint/20 hover:bg-mint-light"
                 >
                   {t(heroCopy.primaryCta)}
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
@@ -101,7 +92,7 @@ export function HeroSection() {
                   href={siteConfig.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-ivory transition hover:border-mint hover:text-mint"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-white/15 px-8 py-4 text-sm font-semibold text-ivory transition hover:border-mint hover:text-mint hover:bg-white/5"
                 >
                   <MessageCircle className="h-4 w-4" />
                   {t(heroCopy.secondaryCta)}
@@ -109,41 +100,43 @@ export function HeroSection() {
               </motion.div>
             </div>
 
-            {isCalendlyOpen && (
-              <div
-                className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4 backdrop-blur-sm sm:p-6"
-                onClick={() => setIsCalendlyOpen(false)}
-              >
-                <div
-                  className="relative w-full max-w-5xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d1220] shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  <div className="flex flex-col gap-3 border-b border-white/10 bg-ink/95 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.24em] text-zinc-400">{t(heroCopy.primaryCta)}</p>
-                      <h2 className="mt-1 text-lg font-semibold text-ivory">
-                        {t({ en: "Schedule your audit call", ar: "حدد موعد جلسة التدقيق" })}
-                      </h2>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsCalendlyOpen(false)}
-                      className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-300 transition hover:bg-white/10"
-                    >
-                      {t({ en: "Close", ar: "إغلاق" })}
-                    </button>
-                  </div>
-
-                  <div className="h-[min(80vh,720px)] bg-[#02060f]">
-                    <InlineWidget
-                      url={process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com"}
-                      styles={{ height: "100%", minHeight: "640px" }}
-                      pageSettings={{ hideLandingPageDetails: true, hideEventTypeDetails: true }}
-                    />
-                  </div>
-                </div>
+            {/* Trust microcopy */}
+            <motion.div
+              className="mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.5 }}
+            >
+              <div className="flex items-center gap-2 text-xs text-zinc-400">
+                <Check className="h-4 w-4 text-mint flex-shrink-0" aria-hidden="true" />
+                {t({ en: "No signup required", ar: "بلا حاجة للتسجيل" })}
               </div>
-            )}
+              <div className="flex items-center gap-2 text-xs text-zinc-400">
+                <Check className="h-4 w-4 text-mint flex-shrink-0" aria-hidden="true" />
+                {t({ en: "30-minute strategy call", ar: "جلسة استراتيجية 30 دقيقة" })}
+              </div>
+              <div className="flex items-center gap-2 text-xs text-zinc-400">
+                <Check className="h-4 w-4 text-mint flex-shrink-0" aria-hidden="true" />
+                {t({ en: "Instant confirmation", ar: "تأكيد فوري" })}
+              </div>
+              <div className="flex items-center gap-2 text-xs text-zinc-400">
+                <Check className="h-4 w-4 text-mint flex-shrink-0" aria-hidden="true" />
+                {t({ en: "GCC-focused consultation", ar: "استشارة متخصصة في الخليج" })}
+              </div>
+            </motion.div>
+
+            {/* Booking Modal */}
+            <BookingModal
+              isOpen={isCalendlyOpen}
+              onClose={() => setIsCalendlyOpen(false)}
+              title={t({ en: "Schedule your audit call", ar: "حدد موعد جلسة التدقيق" })}
+              subtitle={t(heroCopy.primaryCta)}
+              closeLabel={t({ en: "Close", ar: "إغلاق" })}
+            >
+              <CalendlyEmbed
+                calendlyUrl={process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com"}
+              />
+            </BookingModal>
           </MotionReveal>
         </div>
         <MotionReveal delay={0.18} className="mx-auto w-full max-w-lg rounded-lg border border-white/10 bg-white/[0.03] p-6 lg:mx-0 lg:max-w-none">
