@@ -134,7 +134,7 @@ export function HeroSection() {
               closeLabel={t({ en: "Close", ar: "إغلاق" })}
             >
               <CalendlyEmbed
-                calendlyUrl={process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com"}
+                calendlyUrl={process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com/3bdullahselim/30min"}
               />
             </BookingModal>
           </MotionReveal>
